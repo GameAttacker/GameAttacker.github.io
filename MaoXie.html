@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+
+<!-- 头部 -->
+<head>
+    <meta charset="UTF-8">
+    <title>MaoXie</title>
+    <!-- 引入样式文件 -->
+	<link rel="stylesheet" href="https://gameattacker.github.io/MaoXie/index.css">
+    <!-- 引入 Vue 和 Vant 的 JS 文件 -->
+	<script src="https://gameattacker.github.io/MaoXie/js1.js"></script>
+	<script src="https://gameattacker.github.io/MaoXie/js2.js"></script>
+    <script src="https://gameattacker.github.io/MaoXie/js3.js"></script>
+
+    <style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+
+		.ayimgui {
+			position: fixed;
+			width: 360px;
+			height: 320px;
+			top: calc(50% - 180px);
+			left: calc(50% - 180px);
+			z-index: 999;
+			background-color: #F0F0F0;
+			/* border-radius: 8px; */
+			overflow: hidden;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+
+		.onlyTitle {
+			height: 21px !important;
+		}
+
+		.ayimgui .aytitle {
+			padding: 0 5px;
+			font-size: 16px;
+			background-color: #d1d1d1;
+		}
+
+		.ayimgui .aytitle .titleClose {
+			position: absolute;
+			top: 3px;
+			right: 6px;
+			color: #000;
+		}
+
+		.ayimgui .aytitle .titleClose:hover {
+			color: #409EFF;
+		}
+
+		.ayimgui .aybody {
+			padding: 15px;
+			height: calc(100% - 21px - 15px - 15px);
+			/*减去标题高度，减去上线padding高度*/
+			overflow: auto;
+			font-size: 14px;
+		}
+
+
+		.aytext {
+			width: 100%;
+			margin-bottom: 10px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+			color: #000;
+		}
+
+		.el-checkbox {
+			margin: 0px;
+		}
+
+		.el-checkbox__label {
+			color: #000;
+		}
+
+		.el-checkbox__input.is-checked+.el-checkbox__label {
+			color: #409EFF;
+		}
+
+		.el-checkbox__inner {
+			background-color: rgb(254, 254, 254);
+			border: none;
+		}
+
+
+		.el-radio {
+			margin: 8px 0;
+		}
+
+		.el-radio__label {
+			color: #000;
+		}
+
+		.el-radio__input.is-checked+.el-radio__label {
+			color: #409EFF;
+		}
+
+		.el-radio__inner {
+			background-color: rgb(254, 254, 254);
+			border: none;
+		}
+
+		.el-radio__input.is-checked .el-radio__inner {
+			background-color: rgb(254, 254, 254);
+		}
+
+		.el-radio__inner::after {
+			width: 10px;
+			height: 10px;
+			background-color: rgb(58, 138, 247);
+		}
+
+		.onlySelect {
+			background-color: rgb(254, 254, 254);
+			border: none;
+		}
+
+		.onlySelect .el-select-dropdown__item {
+			color: #000;
+
+		}
+
+		.onlySelect .el-select-dropdown__item.hover,
+		.el-select-dropdown__item:hover:hover {
+			background-color: transparent;
+		}
+
+		.onlySelect .popper__arrow {
+			border-bottom-color: rgb(254, 254, 254) !important;
+		}
+
+		.onlySelect.el-popper[x-placement^=bottom] .popper__arrow::after {
+			border-bottom-color: rgb(8254, 254, 254) !important;
+		}
+
+		.el-select {
+			width: 100%;
+		}
+
+		.el-select .el-input {
+			background-color: rgb(254, 254, 254);
+		}
+
+		.el-select .el-input__suffix {
+			background-color: rgb(160, 196, 243);
+			color: #000;
+			right: 0;
+		}
+
+		.el-select .el-select__caret {
+			color: #000;
+		}
+
+		.el-select .el-input__inner {
+			background-color: transparent;
+			border: none;
+			color: #000;
+		}
+
+		.el-select .el-input .el-select__caret {
+			color: #000;
+		}
+
+		/* 解决ios下拉需要点两次 */
+		.el-scrollbar .el-scrollbar__bar {
+			opacity: 1 !important;
+		}
+
+		/*菜单*/
+		*:not(input, checkbox, textarea) {
+			/*禁止文本选择*/
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			user-select: none;
+			/* Non-prefixed version, currently */
+		}
+
+		.el-button {
+			font-size: 14px;
+			padding: 5px 10px;
+			line-height: 14px;
+			color: #000;
+			background-color: #B8D1F2;
+		}
+
+		.el-button:hover {
+			opacity: .7;
+			color: #000;
+			background-color: #B8D1F2;
+		}
+
+		.el-button:focus,
+		.el-button:hover {
+			color: #000;
+			background-color: #B8D1F2;
+		}
+
+		.aycollapse {
+			width: 100%;
+			font-size: 14px;
+			background-color: rgb(177, 206, 240);
+			color: #000;
+		}
+
+		.aytab {
+			width: 100%;
+			height: 20px;
+			display: flex;
+			border-bottom: 2px solid rgb(200, 217, 233);
+		}
+
+		.aytab span {
+			padding: 0 5px;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background-color: rgb(189, 199, 208);
+			color: #000;
+			font-size: 14px;
+			font-weight: 500;
+			margin-left: 10px;
+			border-radius: 6px 6px 0 0;
+			cursor: pointer;
+		}
+
+
+		.el-input input {
+			background-color: rgb(254, 254, 254);
+			border: none;
+			border-radius: 0px;
+		}
+	</style>
+
+
+</head>
+
+
+<!-- 内容 -->
+<body>
+    <div id="app">
+        <div :class="!ifshow?'onlyTitle ayimgui':'ayimgui'" ref="menuMain">
+			<div class="aytitle" @touchstart="titleTouchStart" @touchmove="titleTouchMove">
+				<i :class="ifshow?'el-icon-caret-bottom':'el-icon-caret-top'" @click="ifshow = !ifshow"></i>
+				<span class="title-age" style="margin-left:5px;">MaoXie</el-empty></span>
+				<i class="titleClose el-icon el-icon-close" @click="closeimgui"></i>
+			</div>
+			<div class="aybody">
+				<template>
+					<el-alert
+					  title="MaoXie:加载成功！"
+					  type="success"
+					  center
+					  show-icon
+					  :closable="false">
+					</el-alert>
+				</template>
+				<br>
+
+				<div class="aytab">
+					<span @click="changeTab('one')" :style="{background:tabValue==='one'?'#B1CEF0':'#BDC7D0'}">绘制</span>
+					<span @click="changeTab('two')" :style="{background:tabValue==='two'?'#B1CEF0':'#BDC7D0'}">功能</span>
+
+				</div>
+				<template>			
+				<div v-show="tabValue==='one'">
+					<div class="aytext">
+						<p> </p>
+					</div>
+					<el-switch v-model="value1" active-text="" inactive-text="开启绘制" onclick="draw()" ></el-switch>
+					<el-switch v-model="value2" active-text="" inactive-text="直播模式" onclick="zhibo()"></el-switch>
+					</el-input-number>
+				    <br>
+					<br>
+					<el-checkbox style="letter-spacing:10px;" v-model="checkedDarw.line">射线</el-checkbox>
+					<el-checkbox style="letter-spacing:10px;" v-model="checkedDarw.box"> 方框 </el-checkbox>
+                    <el-checkbox style="letter-spacing:10px;" v-model="checkedDarw.hp"> 血条 </el-checkbox>
+					<br>
+					<el-checkbox style="letter-spacing:10px;" v-model="checkedDarw.team"> 队标 </el-checkbox>
+                    <el-checkbox style="letter-spacing:10px;" v-model="checkedDarw.dis"> 距离 </el-checkbox>   
+					<el-checkbox style="letter-spacing:10px;" v-model="checkedDarw.name"> 名字 </el-checkbox>          
+                    <br>
+                    <el-checkbox style="letter-spacing:10px;" v-model="checkedDarw.behind">背敌</el-checkbox>
+					<br>
+					<br>
+					<span>FPS[ms/次]</span>
+					<el-slider v-model="value" show-input :show-tooltip="false" input-size="mini"></el-slider>
+				</div>
+			</template>	
+			<template>			
+				<div v-show="tabValue==='two'">
+					<br>
+					<el-button size="mini" type="info" round>无后坐力</el-button>
+					<el-button size="mini" type="info" round>枪口防抖</el-button>
+					<el-button size="mini" type="info" round>开镜防抖</el-button>
+					<br>
+					<br>
+					<el-button size="mini" type="info" round>范围打击</el-button>
+
+				</div>
+			</template>	
+			</div>
+		</div>
+    </div>
+    <script src="https://gameattacker.github.io/MaoXie/js3.js"></script>
+
+	<script>
+		//开启绘制
+
+		function draw(fps) {
+
+			if (window.draw_state == 1) {
+				window.draw_state = 0;
+				closeDraw();
+			} else {
+				window.draw_state = 1;
+			}
+		}
+
+
+
+		function zhibo() {
+			if (window.zhibo1 == 1) {
+				window.zhibo1 = 0;
+				var hideView = h5gg.loadPlugin("ayHide", "h5gg_hideview.dylib");
+				setButtonImage("https://gameattacker.github.io/MaoXie/icon.png");
+				//关闭过直播
+				//hideView.changeHidden(0);
+				//开启过直播
+				hideView.changeHidden(0);
+
+				//HOOK源触摸函数，同步过直播view的触摸开关
+				var orig_setWindowTouch = setWindowTouch;
+				setWindowTouch = function (isTouch) {
+					var boolNum = isTouch ? 1 : 0;
+					hideView.changeTouch(boolNum);
+					orig_setWindowTouch(isTouch);
+				}
+			} else {
+				window.zhibo1 = 1;
+				var hideView = h5gg.loadPlugin("ayHide", "h5gg_hideview.dylib");
+				setButtonImage("https://gchat.qpic.cn/gchatpic_new/0/0-0-AEADC8B12D4F90C67B3FE70B4F5F881B/0");
+				//关闭过直播
+
+				//hideView.changeHidden(0);
+				//开启过直播
+				hideView.changeHidden(1);
+
+				//HOOK源触摸函数，同步过直播view的触摸开关
+				var orig_setWindowTouch = setWindowTouch;
+				setWindowTouch = function (isTouch) {
+					var boolNum = isTouch ? 1 : 0;
+					hideView.changeTouch(boolNum);
+					orig_setWindowTouch(isTouch);
+				}
+			}
+		}
+
+	</script>
+
+	
+	<script>
+		/*禁止文本选择和拖动*/
+
+		document.body.addEventListener('touchstart', function () { });
+
+		setWindowDrag(0, 0, 0, 0);
+
+		var iosScale = window.devicePixelRatio;
+		var sWidth = 0;
+		var sHeight = 0;
+
+		var canvas = document.createElement("canvas");
+		document.body.appendChild(canvas);
+		canvas.style.height = "100%";
+		canvas.style.width = "100%";
+		//获取窗口信息
+		var layout = function () {
+
+			if (window.lastorientation == window.orientation) return;
+			window.lastorientation = window.orientation;
+
+			if (Math.abs(window.orientation) == 90) {
+				setWindowRect(0, 0, window.screen.height, window.screen.width);
+				canvas.width = window.screen.height * iosScale;
+				canvas.height = window.screen.width * iosScale;
+				sWidth = window.screen.height;
+				sHeight = window.screen.width;
+			} else {
+				setWindowRect(0, 0, window.screen.width, window.screen.height);
+				canvas.height = window.screen.height * iosScale;
+				canvas.width = window.screen.width * iosScale;
+				sWidth = window.screen.width;
+				sHeight = window.screen.height;
+			}
+		}
+		setButtonImage("https://gameattacker.github.io/MaoXie/icon.png");
+
+		layout();
+		window.addEventListener("orientationchange", layout, false);
+
+
+		var ctx = canvas.getContext('2d');
+		setLineWidth(iosScale);
+		var fontFamily = " Arial";
+		var cacheTimer = null;
+		var drawTimer = null;
+		var actorCache = [];
+		//获取进程
+		var baseAddr = Number(h5gg.getRangesList(0)[0].start);
+		var GWorld = 0;
+		function drawCache() {
+			if (isNull(GWorld)) return;
+			//类
+			var Level = readLong(GWorld + 0x30);
+			//数量
+			var ActorArray = readLong(Level + 0xA0);
+			//对象数组
+			var ActorCount = readInt(Level + 0xA8);
+			var tempArr = [];
+			//遍历
+			for (var i = 0; i < ActorCount; i++) {
+				var actor = readLong(ActorArray + i * 8);
+				if (isNull(actor)) continue;
+
+				var hpmax = readFloat(actor + 0xCF0);
+
+				if (hpmax == 100 || hpmax == 120) {
+					tempArr.push(actor);
+				}
+			}
+			actorCache = tempArr;
+		}
+
+
+    // 绘制内容
+	function shadowDraw() {
+		//清除画布
+		closeDraw();
+		//世界地址
+        GWorld = readLong(baseAddr + 0xA0E8D38) //没有基址，自己有就填上，没有就凉拌
+        if (isNull(GWorld)) return
+
+        //获取自己
+        const NetDriver = readLong(GWorld + 0x98)
+        const ServerConnection = readLong(NetDriver + 0x78)
+        const localPlayerController = readLong(ServerConnection + 0x30)
+        const mySelf = readLong(localPlayerController + 0x518)
+        if (isNull(mySelf)) return
+        const teamCopy = readInt(mySelf + 0x9F8)
+        myTeam = teamCopy <= 100 ? teamCopy : myTeam
+
+        const playerCameraManager = readLong(localPlayerController + 0x5a0)
+        if (isNull(playerCameraManager)) return
+        const povAddr = playerCameraManager + 0x1120 + 0x10
+        const camViewInfo = {
+            Location: {
+                X: readFloat(povAddr),
+                Y: readFloat(povAddr + 4),
+                Z: readFloat(povAddr + 4 + 4)
+            },
+            Rotation: {
+                Pitch: readFloat(povAddr + 0x18),
+                Yaw: readFloat(povAddr + 0x18 + 4),
+                Roll: readFloat(povAddr + 0x18 + 4 + 4)
+            },
+            FOV: readFloat(povAddr + 0x24)
+        }
+			
+        //一帧只计算一次，减少性能消耗
+			var tempMatrix = RotatorToMatrix(camViewInfo.Rotation);
+
+			var playerCout = 0;
+			for (var i = 0; i < actorCache.length; i++) {
+				var actor = actorCache[i];
+				//if (mySelf == actor) continue;
+
+				var team = readInt(actor + 0x9F8);
+
+				//if (myTeam == team) continue;
+				var hp = readFloat(actor + 0xCE8);
+
+				var rootComponent = readLong(actor + 0x268);
+				if (isNull(rootComponent)) continue;
+				var worldPos = {
+					X: readFloat(rootComponent + 0x1C0),
+					Y: readFloat(rootComponent + 0x1C0 + 4),
+					Z: readFloat(rootComponent + 0x1C0 + 4 + 4)
+				}
+
+				var distX = (worldPos.X - camViewInfo.Location.X) / 100;
+				var distY = (worldPos.Y - camViewInfo.Location.Y) / 100;
+				var distance = (distX * distX) + (distY * distY);
+				var distZ = (worldPos.Z - camViewInfo.Location.Z) / 100;
+				distance = Math.ceil(Math.sqrt((distZ * distZ) + distance));
+
+				var zb1 = {
+					X: worldPos.X,
+					Y: worldPos.Y,
+					Z: worldPos.Z + 80.0
+				}
+				var zb2 = {
+					X: worldPos.X,
+					Y: worldPos.Y,
+					Z: worldPos.Z - 80.0
+				}
+				var fkzb1 = world2Screen(zb1, camViewInfo, tempMatrix);
+				var fkzb2 = world2Screen(zb2, camViewInfo, tempMatrix);
+				var fkgao = fkzb2.Y - fkzb1.Y;
+				var fkkuan = fkgao / 2;
+
+				var bIsAI = Number(h5gg.getValue(actor + 0xA14, "U8"));
+
+				//读名字可能消耗性能，不需要注释即可⬇️⬇️⬇️⬇️⬇️⬇️
+				var nameAddr = readLong(actor + 0x988);
+				name = nameAddr.toString(16);
+				if (!isNull(nameAddr)) {
+					var name = "";
+					for (var s = 0; s < 14; s++) {
+						var after = Number(h5gg.getValue(nameAddr + s * 2, "U8")).toString(16).padStart(2, '0');
+						var before = Number(h5gg.getValue(nameAddr + s * 2 + 1, "U8")).toString(16).padStart(2, '0');
+						var charCode = before + after;
+						if (charCode == "0000") break;
+
+						name += String.fromCharCode(parseInt(charCode, 16));
+					}
+				}
+				//读名字可能消耗性能，不需要注释即可⬆️⬆️⬆️⬆️⬆️⬆️
+				//骨骼 ⬇️⬇️⬇️⬇️⬇️⬇️
+				var mesh = readInt(GWorld + 0x18)
+				//骨骼数组
+				var mesharray = readInt(mesh + 0x108)
+				guge = mesharray.toString(16);
+				if (!isNull(mesharray)) {
+					var guge = "";
+					for (var s = 0; s < 14; s++) {
+						var after = Number(h5gg.getValue(mesharray + s * 2, "U8")).toString(16).padStart(2, '0');
+						var before = Number(h5gg.getValue(mesharray + s * 2 + 1, "U8")).toString(16).padStart(2, '0');
+						var charCode = before + after;
+						if (charCode == "0000") break;
+
+						guge += String.fromCharCode(parseInt(charCode, 16));
+					}
+				}
+				//骨骼⬆️⬆️⬆️⬆️⬆️⬆️
+				var actorInfo = {
+					x: fkzb1.X,
+					y: fkzb1.Y,
+					w: fkkuan,
+					h: fkgao,
+					hp: hp,
+					isAI: bIsAI,
+					team: team,
+					name: name,
+					dis: distance,
+					MT: myTeam,
+					guge: guge,
+				};
+				shadowInfo(actorInfo);
+				playerCout++;
+				if (team == app.value) {
+					playerCout--;
+				}
+				if (hp == 0 && team != app.value) {
+					playerCout--;
+				}
+				if (team == -1) {
+					playerCout--;
+				}
+			}
+
+
+			drawText(playerCout, sWidth / 2 - 15, 3, 30, "#fff", false);
+			drawText(playerCout, sWidth / 2 - 15, 3, 30, "#f00", true);
+
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		function shadowInfo(objectInfo) {
+			if (objectInfo.team == 1) {
+				var colorStr1 = "";
+			} else if (objectInfo.team == 2) {
+				var colorStr = colorStr2;
+			} else if (objectInfo.team == 3) {
+				var colorStr = colorStr3;
+			} else if (objectInfo.team == 4) {
+				var colorStr = colorStr4;
+			} else if (objectInfo.team == 5) {
+				var colorStr = colorStr5;
+			} else if (objectInfo.team == 6) {
+				var colorStr = colorStr6;
+			} else if (objectInfo.team == 7) {
+				var colorStr = colorStr7;
+			} else if (objectInfo.team == 8) {
+				var colorStr = colorStr8;
+			} else if (objectInfo.team == 9) {
+				var colorStr = colorStr9;
+			} else if (objectInfo.team == 10) {
+				var colorStr = colorStr10;
+			} else if (objectInfo.team == 11) {
+				var colorStr = colorStr11;
+			} else if (objectInfo.team == 12) {
+				var colorStr = colorStr12;
+			} else if (objectInfo.team == 13) {
+				var colorStr = colorStr13;
+			} else if (objectInfo.team == 14) {
+				var colorStr = colorStr14;
+			} else if (objectInfo.team == 15) {
+				var colorStr = colorStr15;
+			} else if (objectInfo.team == 16) {
+				var colorStr = colorStr16;
+			} else if (objectInfo.team == 17) {
+				var colorStr = colorStr17;
+			} else if (objectInfo.team == 18) {
+				var colorStr = colorStr18;
+			} else if (objectInfo.team == 19) {
+				var colorStr = colorStr19;
+			} else if (objectInfo.team == 20) {
+				var colorStr = colorStr10;
+			} else if (objectInfo.team == 21) {
+				var colorStr = colorStr21;
+			} else if (objectInfo.team == 22) {
+				var colorStr = colorStr22;
+			} else if (objectInfo.team == 23) {
+				var colorStr = colorStr23;
+			} else if (objectInfo.team == 24) {
+				var colorStr = colorStr24;
+			} else if (objectInfo.team == 25) {
+				var colorStr = colorStr25;
+			} else if (objectInfo.team == 26) {
+				var colorStr = colorStr26;
+			} else if (objectInfo.team == 27) {
+				var colorStr = colorStr27;
+			} else if (objectInfo.team == 28) {
+				var colorStr = colorStr28;
+			} else if (objectInfo.team == 9) {
+				var colorStr = colorStr29;
+			} else if (objectInfo.team == 30) {
+				var colorStr = colorStr30;
+			} else if (objectInfo.team == 31) {
+				var colorStr = colorStr31;
+			} else if (objectInfo.team == 32) {
+				var colorStr = colorStr32;
+			} else if (objectInfo.team == 33) {
+				var colorStr = colorStr33;
+			} else if (objectInfo.team == 34) {
+				var colorStr = colorStr34;
+			} else if (objectInfo.team == 35) {
+				var colorStr = colorStr35;
+			} else if (objectInfo.team == 36) {
+				var colorStr = colorStr36;
+			} else if (objectInfo.team == 37) {
+				var colorStr = colorStr37;
+			} else if (objectInfo.team == 38) {
+				var colorStr = colorStr38;
+			} else if (objectInfo.team == 39) {
+				var colorStr = colorStr39;
+			} else if (objectInfo.team == 40) {
+				var colorStr = colorStr40;
+			} else if (objectInfo.team == 41) {
+				var colorStr = colorStr41;
+			} else if (objectInfo.team == 42) {
+				var colorStr = colorStr42;
+			} else if (objectInfo.team == 43) {
+				var colorStr = colorStr43;
+			} else if (objectInfo.team == 44) {
+				var colorStr = colorStr44;
+			} else if (objectInfo.team == 45) {
+				var colorStr = colorStr45;
+			} else if (objectInfo.team == 46) {
+				var colorStr = colorStr46;
+			} else if (objectInfo.team == 47) {
+				var colorStr = colorStr47;
+			} else if (objectInfo.team == 48) {
+				var colorStr = colorStr48;
+			} else if (objectInfo.team == 49) {
+				var colorStr = colorStr49;
+			} else if (objectInfo.team == 50) {
+				var colorStr = colorStr50;
+			} else if (objectInfo.team == 51) {
+				var colorStr = colorStr51;
+			} else if (objectInfo.team == 52) {
+				var colorStr = colorStr52;
+			} else if (objectInfo.team == 53) {
+				var colorStr = colorStr53;
+			} else if (objectInfo.team == 54) {
+				var colorStr = colorStr54;
+			} else if (objectInfo.team == 55) {
+				var colorStr = colorStr55;
+			} else if (objectInfo.team == 56) {
+				var colorStr = colorStr56;
+			} else if (objectInfo.team == 57) {
+				var colorStr = colorStr58;
+			} else if (objectInfo.team == 59) {
+				var colorStr = colorStr59;
+			} else if (objectInfo.team == 60) {
+				var colorStr = colorStr60;
+			} else if (objectInfo.team == 61) {
+				var colorStr = colorStr62;
+			} else if (objectInfo.team == 63) {
+				var colorStr = colorStr63;
+			} else if (objectInfo.team == 64) {
+				var colorStr = colorStr64;
+			} else if (objectInfo.team == 65) {
+				var colorStr = colorStr65;
+			} else if (objectInfo.team == 66) {
+				var colorStr = colorStr66;
+			} else if (objectInfo.team == 67) {
+				var colorStr = colorStr67;
+			} else if (objectInfo.team == 68) {
+				var colorStr = colorStr68;
+			} else if (objectInfo.team == 69) {
+				var colorStr = colorStr69;
+			} else if (objectInfo.team == 70) {
+				var colorStr = colorStr70;
+			} else if (objectInfo.team == 71) {
+				var colorStr = colorStr71;
+			} else if (objectInfo.team == 72) {
+				var colorStr = colorStr72;
+			} else if (objectInfo.team == 73) {
+				var colorStr = colorStr73;
+			} else if (objectInfo.team == 74) {
+				var colorStr = colorStr74;
+			} else if (objectInfo.team == 75) {
+				var colorStr = colorStr75;
+			} else if (objectInfo.team == 76) {
+				var colorStr = colorStr76;
+			} else if (objectInfo.team == 77) {
+				var colorStr = colorStr77;
+			} else if (objectInfo.team == 78) {
+				var colorStr = colorStr78;
+			} else if (objectInfo.team == 79) {
+				var colorStr = colorStr79;
+			} else if (objectInfo.team == 80) {
+				var colorStr = colorStr80;
+			} else if (objectInfo.team == 81) {
+				var colorStr = colorStr81;
+			} else if (objectInfo.team == 82) {
+				var colorStr = colorStr82;
+			} else if (objectInfo.team == 83) {
+				var colorStr = colorStr83;
+			} else if (objectInfo.team == 84) {
+				var colorStr = colorStr84;
+			} else if (objectInfo.team == 85) {
+				var colorStr = colorStr85;
+			} else if (objectInfo.team == 86) {
+				var colorStr = colorStr86;
+			} else if (objectInfo.team == 87) {
+				var colorStr = colorStr87;
+			} else if (objectInfo.team == 88) {
+				var colorStr = colorStr88;
+			} else if (objectInfo.team == 89) {
+				var colorStr = colorStr89;
+			} else if (objectInfo.team == 90) {
+				var colorStr = colorStr90;
+			} else if (objectInfo.team == 91) {
+				var colorStr = colorStr91;
+			} else if (objectInfo.team == 92) {
+				var colorStr = colorStr92;
+			} else if (objectInfo.team == 93) {
+				var colorStr = colorStr93;
+			} else if (objectInfo.team == 94) {
+				var colorStr = colorStr94;
+			} else if (objectInfo.team == 95) {
+				var colorStr = colorStr95;
+			} else if (objectInfo.team == 96) {
+				var colorStr = colorStr96;
+			} else if (objectInfo.team == 97) {
+				var colorStr = colorStr97;
+			} else if (objectInfo.team == 98) {
+				var colorStr = colorStr98;
+			} else if (objectInfo.team == 99) {
+				var colorStr = colorStr99;
+			} else if (objectInfo.team == 100) {
+				var colorStr = colorStr100;
+			}
+
+
+			var color = "F00";
+			var colorGamer = app.colorGamer;
+
+			if (objectInfo.team != -1) {
+				if (objectInfo.team != app.value) {
+					if (objectInfo.hp == 0) {
+						drawImage("daodi.png", objectInfo.x - objectInfo.w / 2, objectInfo.y + objectInfo.h / 2, 10, 10);
+					} else {
+						//判断是否是人机 如果是人机的话 上方变量 的color 从F00 到 02F702
+						if (objectInfo.isAI) color = "#02F702";
+						if (objectInfo.isAI) colorGamer = app.colorAi;
+						//如果是人机的话 名字 变为 随机
+						//var nameArr = ['鲨鱼', '古天乐', '哥哥', '权旨', '陈伟霆', '枪响'];
+						//var rand = Math.floor(Math.random() * myArray.length);
+						if (objectInfo.isAI) objectInfo.name = "Bot";
+						//如果是人机的话 对标 变为 AI
+						if (objectInfo.isAI) objectInfo.team = "AI";
+
+						//射线
+						if (app.checkedDarw.isLine) {
+							drawLine(sWidth / 2, 10, objectInfo.x, objectInfo.y - 30, color);
+						}
+						if (app.checkedDarw.isBeiDi) {
+							if (objectInfo.x > sWidth && objectInfo.y < 0) {
+								drawCircle(sWidth, 0, 24, color, true)
+								drawText("" + objectInfo.dis + "m", sWidth, 0, 20, "#333", false); //利用空心文字描边
+								drawText("" + objectInfo.dis + "m", sWidth, 0, 20, "#FFF", true);
+							}//绘制在屏幕右上角
+							else if (objectInfo.x > sWidth && objectInfo.y > sHeight) {
+								drawCircle(sWidth, sHeight, 24, color, true)
+								drawText("" + objectInfo.dis + "m", sWidth, sHeight, 20, "#333", false); //利用空心文字描边
+								drawText("" + objectInfo.dis + "m", sWidth, sHeight, 20, "#FFF", true);
+							} //绘制在屏幕右下角
+							else if (objectInfo.x < 0 && objectInfo.y < 0) {
+								drawCircle(0, 0, 24, color, true)
+								drawText("" + objectInfo.dis + "m", 0, 0, 10, "#333", false); //利用空心文字描边
+								drawText("" + objectInfo.dis + "m", 0, 0, 10, "#FFF", true);
+							}//绘制在屏幕左上角 
+							else if (objectInfo.x < 0 && objectInfo.y > sHeight) {
+								drawCircle(0, sHeight, 24, color, true)
+								drawText("" + objectInfo.dis + "m", 0, sHeight, 10, "#333", false); //利用空心文字描边
+								drawText("" + objectInfo.dis + "m", 0, sHeight, 10, "#FFF", true);
+							}//绘制在屏幕左下角
+							else if (objectInfo.x > sWidth && objectInfo.y < sHeight && objectInfo.y > 0) {
+								drawCircle(sWidth, objectInfo.y, 24, color, true)
+								drawText2("" + objectInfo.dis + "m", sWidth, objectInfo.y - 16, 10, "#333", false); //利用空心文字描边
+								drawText2("" + objectInfo.dis + "m", sWidth, objectInfo.y - 16, 10, "#FFF", true);
+							}//绘制在屏幕右边框
+							else if (objectInfo.x < 0 && objectInfo.y < sHeight && objectInfo.y > 0) {
+								drawCircle(0, objectInfo.y, 24, color, true)
+								drawText("" + objectInfo.dis + "m", 0, objectInfo.y - 16, 10, "#333", false); //利用空心文字描边
+								drawText("" + objectInfo.dis + "m", 0, objectInfo.y - 16, 10, "#FFF", true);
+							}//绘制在屏幕左边框
+							else if (objectInfo.y > sHeight && objectInfo.x < sWidth && objectInfo.x > 0) {
+								drawCircle(objectInfo.x, sHeight, 24, color, true)
+								drawText1("" + objectInfo.dis + "m", objectInfo.x, sHeight - 20, 10, "#333", false); //利用空心文字描边
+								drawText1("" + objectInfo.dis + "m", objectInfo.x, sHeight - 20, 10, "#FFF", true);
+							}//绘制在屏幕下边框
+							else if (objectInfo.y < 0 && objectInfo.x < sWidth && objectInfo.x > 0) {
+								drawCircle(objectInfo.x, 0, 24, color, true)
+								drawText1("" + objectInfo.dis + "m", objectInfo.x, 0 - 12, 10, "#333", false); //利用空心文字描边
+								drawText1("" + objectInfo.dis + "m", objectInfo.x, 0 - 12, 10, "#FFF", true);
+							}//绘制在屏幕上边框
+						}
+						//判断屏幕外是否绘制方框
+						if (objectInfo.x < 0 || objectInfo.y < 0 || objectInfo.x > sWidth || objectInfo.y > sHeight) return;
+						//方框
+						if (app.checkedDarw.isBox) {
+							drawRect(objectInfo.x - objectInfo.w / 2, objectInfo.y, objectInfo.w, objectInfo.h, color, false);
+						}
+						//信息
+						/* if (app.checkedDarw.isName) {
+							if (objectInfo.hp == 120) {
+								drawCircleyuanhuan(objectInfo.x, objectInfo.y - 20, 10, 0, objectInfo.hp / 19.1, 2)
+							} else {
+								drawCircleyuanhuan(objectInfo.x, objectInfo.y - 20, 10, 0, objectInfo.hp / 15.9, 2)
+							}
+							drawText1(objectInfo.team + " " + " " + objectInfo.name, objectInfo.x, objectInfo.y - 18, 8, color = "#333", true);
+							drawText1(objectInfo.team + " " + " " + objectInfo.name, objectInfo.x, objectInfo.y - 18, 8, color = "#faef00", true);
+						}*/
+						if (app.checkedDarw.isName) {
+							//对标背景
+							drawCircle(objectInfo.x, objectInfo.y - 20, 7.5, colorStr, true)
+							//血条
+							drawCircleyuanhuan(objectInfo.x, objectInfo.y - 20, 8, 0, objectInfo.hp / 19.1, 1.5)
+							//对标
+							drawText1(objectInfo.team, objectInfo.x, objectInfo.y - 36, 10, color = "#FFF", true);
+							//名字
+							drawText1(objectInfo.name, objectInfo.x, objectInfo.y - 46, 8, color = "#FFF", true);
+							//血量文字
+							//drawText(objectInfo.hp, objectInfo.x, objectInfo.y + objectInfo.h -20 , 8, color = "#FFF", true);
+						}
+
+						//距离
+						if (app.checkedDarw.isDis) {
+							var w = 20;
+							if (objectInfo.dis < 10) {
+								var w = 15;
+							}
+							if (objectInfo.dis > 100) {
+								var w = 25;
+							}
+							var w2 = 25;
+							if (objectInfo.dis > 9) {
+								var w2 = 30;
+							}
+							if (objectInfo.dis > 99) {
+								var w2 = 35;
+							}
+
+							if (objectInfo.x > sWidth / 2) {
+								drawRect(objectInfo.x - w2, objectInfo.y - 25, w, 12, "#333", true);
+								drawText(objectInfo.dis + "m", objectInfo.x - w2, objectInfo.y - 35, 10, color = "#FFF", true);
+							} else {
+								drawRect(objectInfo.x + 10, objectInfo.y - 25, w, 12, "#333", true);
+								drawText(objectInfo.dis + "m", objectInfo.x + 10, objectInfo.y - 35, 10, color = "#FFF", true);
+							}
+
+						}
+						if (app.checkedDarw.isZm) {
+							drawCircle1(sWidth / 2, sHeight / 2, app.value9, "#f00", true)
+							//drawLine(sWidth / 2, sHeight / 2, objectInfo.x, objectInfo.y + objectInfo.h / 2, color);
+
+						}
+
+						//骨骼
+						if(app.checkedDarw.isBone){
+							//drawText(objectInfo.guge +" ←guge1", objectInfo.x + 20, objectInfo.y - 45, 10, color = "#FFF", true);
+
+						}
+
+					}
+
+				}
+			}
+		}
+
+		// 清除画布
+		function closeDraw() {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+		}
+
+		function setLineWidth(w) {
+			ctx.lineWidth = w;
+		}
+		function drawCircleyuanhuan(x, y, r, q, j, w) {
+			x *= iosScale;
+			y *= iosScale;
+			r *= iosScale;
+			q *= iosScale;
+			j *= iosScale;
+			w *= iosScale;
+
+			ctx.beginPath();
+			ctx.globalAlpha = 0.8;
+			ctx.lineWidth = w;
+			ctx.lineCap = "butt";//线条的末端线帽 butt|round|square
+			ctx.strokeStyle = "#a0f207";
+			//arc(x,y,r,起始角，结束角，时针方向：false = 顺时针 true = 逆时针)
+			ctx.arc(x, y, r, q, j, false);
+			ctx.stroke();
+		}
+
+		function drawText1(text, x, y, size, color, isFill = true) {
+			x *= iosScale;
+			y *= iosScale;
+
+			size *= iosScale;
+
+			ctx.beginPath();
+			ctx.textAlign = "center";
+			ctx.fillStyle = color;
+			ctx.strokeStyle = color;
+			ctx.globalAlpha = 1;
+			ctx.lineWidth = 2;
+			ctx.font = size + 'px' + fontFamily;
+			if (isFill) {
+				ctx.fillText(text, x, y + size);
+			} else {
+				ctx.strokeText(text, x, y + size);
+			}
+			ctx.closePath();
+		}
+		function drawText2(text, x, y, size, color, isFill = true) {
+			x *= iosScale;
+			y *= iosScale;
+
+			size *= iosScale;
+
+			ctx.beginPath();
+			ctx.textAlign = "center";
+			ctx.fillStyle = color;
+			ctx.strokeStyle = color;
+			ctx.globalAlpha = 0.6;
+			ctx.lineWidth = 2;
+			ctx.font = size + 'px' + fontFamily;
+			if (isFill) {
+				ctx.fillText(text, x, y + size);
+			} else {
+				ctx.strokeText(text, x, y + size);
+			}
+			ctx.closePath();
+		}
+		function drawText2(text, x, y, size, color, isFill = true) {
+			x *= iosScale;
+			y *= iosScale;
+			size *= iosScale;
+
+			ctx.beginPath();
+			ctx.textAlign = "right";
+			ctx.fillStyle = color;
+			ctx.strokeStyle = color;
+			ctx.globalAlpha = 1;
+			ctx.font = size + 'px' + fontFamily;
+			if (isFill) {
+				ctx.fillText(text, x, y + size);
+			} else {
+				ctx.strokeText(text, x, y + size);
+			}
+			ctx.closePath();
+		}
+		function drawImage(img, x, y, w, h, isFill = true) {
+			x *= iosScale;
+			y *= iosScale;
+			w *= iosScale;
+			h *= iosScale;
+
+			var img = new Image();
+			img.src = "https://gameattacker.github.io/MaoXie/daodi.png";
+			//图片加载完成后
+			img.onload = function () {
+				ctx.drawImage(img, x, y, w, h);
+			}
+		}
+		function drawRectangle(x, y, w, h, color, isFill = true) {
+			x *= iosScale;
+			y *= iosScale;
+			w *= iosScale;
+			h *= iosScale;
+
+			ctx.beginPath();
+
+			ctx.fillStyle = color;
+			ctx.globalAlpha = 0.5;
+			ctx.fillRect(x, y, 186, 32);
+
+			ctx.closePath();
+		}
+
+
+		function drawLine(x1, y1, x2, y2, color) {
+			x1 *= iosScale;
+			y1 *= iosScale;
+			x2 *= iosScale;
+			y2 *= iosScale;
+
+
+
+			ctx.lineWidth = 1;
+			ctx.beginPath();
+			ctx.fillStyle = color;
+			ctx.strokeStyle = color;
+			ctx.globalAlpha = 1;
+			ctx.moveTo(x1, y1);
+			ctx.lineTo(x2, y2);
+			ctx.stroke();
+			ctx.closePath();
+		}
+
+		function drawCircle(x, y, r, color, isFill = true) {
+			x *= iosScale;
+			y *= iosScale;
+			r *= iosScale;
+
+			ctx.beginPath();
+			ctx.strokeStyle = color;
+			ctx.fillStyle = color;
+			ctx.arc(x, y, r, 0, 2 * Math.PI);
+			ctx.globalAlpha = 0.5;
+
+			if (isFill) {
+				ctx.fill();
+			} else {
+				ctx.stroke();
+			}
+			ctx.closePath();
+		}
+		function drawCircle1(x, y, r, color, isFill = true) {
+			x *= iosScale;
+			y *= iosScale;
+			r *= iosScale;
+
+			ctx.beginPath();
+			ctx.strokeStyle = color;
+			ctx.fillStyle = color;
+			ctx.arc(x, y, r, 0, 2 * Math.PI);
+			ctx.stroke();
+
+			ctx.closePath();
+		}
+
+
+		function drawRect(x, y, w, h, color, isFill = true) {
+			x *= iosScale;
+			y *= iosScale;
+			w *= iosScale;
+			h *= iosScale;
+
+			ctx.lineWidth = 5;
+			ctx.beginPath();
+			ctx.strokeStyle = color;
+			ctx.fillStyle = color;
+			ctx.globalAlpha = 0.6;
+			if (isFill) {
+				ctx.fillRect(x, y, w, h);
+			} else {
+				ctx.strokeRect(x, y, w, h);
+			}
+			ctx.closePath();
+		}
+
+		function drawRoundRect(x, y, w, h, r, color, isFill = true) {
+			x *= iosScale;
+			y *= iosScale;
+			w *= iosScale;
+			h *= iosScale;
+			r *= iosScale;
+
+			ctx.beginPath();
+			ctx.strokeStyle = color;
+			ctx.fillStyle = color;
+			ctx.globalAlpha = 1;
+			if (w < 2 * r) r = w / 2;
+			if (h < 2 * r) r = h / 2;
+			ctx.beginPath();
+			ctx.moveTo(x + r, y);
+			ctx.arcTo(x + w, y, x + w, y + h, r);
+			ctx.arcTo(x + w, y + h, x, y + h, r);
+			ctx.arcTo(x, y + h, x, y, r);
+			ctx.arcTo(x, y, x + w, y, r);
+			if (isFill) {
+				ctx.fill();
+			} else {
+				ctx.stroke();
+			}
+			ctx.closePath();
+		}
+
+		function drawText(text, x, y, size, color, isFill = true) {
+			x *= iosScale;
+			y *= iosScale;
+			size *= iosScale;
+
+			ctx.beginPath();
+			ctx.textAlign = "left";
+			ctx.fillStyle = color;
+			ctx.strokeStyle = color;
+			ctx.globalAlpha = 1;
+			ctx.lineWidth = 2;
+			ctx.font = size + 'px' + fontFamily;
+			if (isFill) {
+				ctx.fillText(text, x, y + size);
+			} else {
+				ctx.strokeText(text, x, y + size);
+			}
+			ctx.closePath();
+		};
+
+    // ********************* 内存相关 *********************
+    function readInt(addr) {
+        return Number(h5gg.getValue(addr, "I32"));
+    }
+
+    function readLong(addr) {
+        return Number(h5gg.getValue(addr, "I64"));
+    }
+
+    function readFloat(addr) {
+        return Number(h5gg.getValue(addr, "F32"));
+    }
+
+    function isNull(addr) {
+        return (addr < 0x100000000 || addr > 0x300000000);
+    }
+
+    // ********************* UE4相关 *********************
+    function RotatorToMatrix(rotation) {
+        var radPitch = rotation.Pitch * (Math.PI / 180.0);
+        var radYaw = rotation.Yaw * (Math.PI / 180.0);
+        var radRoll = rotation.Roll * (Math.PI / 180.0);
+
+        var SP = Math.sin(radPitch);
+        var CP = Math.cos(radPitch);
+        var SY = Math.sin(radYaw);
+        var CY = Math.cos(radYaw);
+        var SR = Math.sin(radRoll);
+        var CR = Math.cos(radRoll);
+
+        var matrix = new Array(16).fill(0);
+
+        matrix[0] = (CP * CY);
+        matrix[1] = (CP * SY);
+        matrix[2] = (SP);
+        matrix[3] = 0;
+
+        matrix[4] = (SR * SP * CY - CR * SY);
+        matrix[5] = (SR * SP * SY + CR * CY);
+        matrix[6] = (-SR * CP);
+        matrix[7] = 0;
+
+        matrix[8] = (-(CR * SP * CY + SR * SY));
+        matrix[9] = (CY * SR - CR * SP * SY);
+        matrix[10] = (CR * CP);
+        matrix[11] = 0;
+
+        matrix[12] = 0;
+        matrix[13] = 0;
+        matrix[14] = 0;
+        matrix[15] = 1;
+
+        return matrix;
+    }
+
+
+    function vectorDot(lhs, rhs) {
+        return (((lhs.X * rhs.X) + (lhs.Y * rhs.Y)) + (lhs.Z * rhs.Z));
+    }
+
+    function world2Screen(worldLocation, camViewInfo, tempMatrix) {
+        // var tempMatrix = RotatorToMatrix(camViewInfo.Rotation);
+
+        var vAxisX = {
+            X: tempMatrix[0],
+            Y: tempMatrix[1],
+            Z: tempMatrix[2]
+        };
+        var vAxisY = {
+            X: tempMatrix[4],
+            Y: tempMatrix[5],
+            Z: tempMatrix[6]
+        };
+        var vAxisZ = {
+            X: tempMatrix[8],
+            Y: tempMatrix[9],
+            Z: tempMatrix[10]
+        };
+
+        var vDelta = {
+            X: worldLocation.X - camViewInfo.Location.X,
+            Y: worldLocation.Y - camViewInfo.Location.Y,
+            Z: worldLocation.Z - camViewInfo.Location.Z
+        };
+
+        var vTransformed = {
+            X: vectorDot(vDelta, vAxisY),
+            Y: vectorDot(vDelta, vAxisZ),
+            Z: vectorDot(vDelta, vAxisX)
+        };
+
+        if (vTransformed.Z < 1.0) {
+            vTransformed.Z = 1.0;
+        }
+
+        var fov = camViewInfo.FOV;
+        var screenCenterX = (sWidth / 2.0);
+        var screenCenterY = (sHeight / 2.0);
+
+        var re = {
+            X: (screenCenterX + vTransformed.X * (screenCenterX / Math.tan(fov * (Math.PI / 360.0))) / vTransformed.Z),
+            Y: (screenCenterY - vTransformed.Y * (screenCenterX / Math.tan(fov * (Math.PI / 360.0))) / vTransformed.Z)
+        };
+
+        return re;
+    }
+
+    // ********************* UE4相关 *********************
+
+
+		cacheTimer = setInterval(function () {
+			drawCache();
+		}, 1000);
+		drawTimer = setInterval(function () {
+			if (window.draw_state) {
+				shadowDraw();
+
+				if (!window.fpscount) window.fpscount = 0;
+				if (!window.fpstime) window.fpstime = performance.now();
+				window.fpscount++;
+				if ((performance.now() - window.fpstime) > 4000) {
+					window.fps = window.fpscount;
+					window.fpstime = performance.now();
+					window.fpscount = 0;
+				}
+				ctx.textBaseline = "top";
+				ctx.textAlign = "center";
+				ctx.font = '0px "Arial, sans-serif"';
+				ctx.fillStyle = "red";
+				if (window.fps) ctx.fillText(window.fps, 80, 30);
+			}
+		}, 30);
+	</script>
+	<script>
+
+		//随机颜色 
+		var colorStr1 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr1 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr2 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr2 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr3 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr3 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr4 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr4 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr5 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr5 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr6 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr6 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr7 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr7 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr8 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr8 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr9 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr9 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr10 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr10 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr11 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr11 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr12 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr12 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr13 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr13 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr14 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr14 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr15 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr15 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr16 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr16 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr17 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr17 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr18 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr18 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr19 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr19 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr20 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr20 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr21 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr21 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr22 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr22 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr23 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr23 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr24 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr24 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr25 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr25 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr26 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr26 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr27 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr27 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr28 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr28 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr29 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr29 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr30 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr30 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr31 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr31 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr32 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr32 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr33 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr33 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr34 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr34 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr35 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr35 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr36 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr36 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr37 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr37 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr38 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr38 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr39 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr39 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr40 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr40 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr41 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr41 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr42 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr42 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr43 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr43 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr44 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr44 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr45 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr45 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr46 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr46 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+		var colorStr47 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) {
+			colorStr47 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)];
+		}
+
+		var colorStr48 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr48 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr49 = "";
+		var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr49 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr50 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr50 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr51 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr51 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr52 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr52 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr53 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr53 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr54 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr54 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr55 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr55 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr56 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr56 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr57 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr57 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr58 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr58 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr59 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr59 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr60 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr60 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr61 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr61 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr62 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr62 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr63 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr63 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr64 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr64 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr65 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr65 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr66 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr66 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr67 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr67 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr68 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr68 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr69 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr69 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr70 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr70 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr71 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr71 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr72 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr72 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr73 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr73 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr74 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr74 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr75 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr75 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr76 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr76 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr77 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr77 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr78 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr78 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr79 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr79 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr80 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr80 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr81 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr81 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr82 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr82 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr83 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr83 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr84 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr84 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr85 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr85 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr86 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr86 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr87 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr87 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr88 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr88 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr89 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr89 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr90 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr90 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr91 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr91 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr92 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr92 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr93 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr93 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr94 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr94 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr95 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr95 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr96 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr96 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr97 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr97 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr98 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr98 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var colorStr99 = ""
+			; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+		for (var i = 0; i < 6; i++) { colorStr99 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; } var
+			colorStr100 = ""; var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd'
+				, 'e', 'f']; for (var i = 0; i < 6; i++) { colorStr100 += randomArr[Math.ceil(Math.random() * (15 - 0) + 0)]; }
+	</script>
+
+
+
+
+
+	
+
+</body>
+
+
+</html>
+
