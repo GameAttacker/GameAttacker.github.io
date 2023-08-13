@@ -1,0 +1,1 @@
+var body=$response['body']['replace'](/coin":\d+/g,'coin":999999')['replace'](/score":\d+/g,'score":999999')['replace'](/deci_score":\d+/g,'deci_score\x22:999999')['replace'](/code":\d/g,'code":0')['replace'](/name":".*?"/g,'name":"彭于晏破解"');$done({'body':body});
